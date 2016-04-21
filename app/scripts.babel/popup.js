@@ -39,7 +39,16 @@
 
     function activate() {
       console.log('\'Allo \'Allo! Popup');
+      loadOptions();
       buildResponses();
+    }
+
+    function loadOptions() {
+      chrome.storage.local.get('options', (data) => {
+        console.log('Options loaded', data.options);
+        vm.options = data.options;
+        $scope.$applyAsync();
+      });
     }
 
     function buildResponses() {

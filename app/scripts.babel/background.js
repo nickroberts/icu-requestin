@@ -144,7 +144,8 @@ chrome.storage.local.get('options', (data) => {
       urls: [
         'http://*/*',
         'https://*/*'
-      ]
+      ],
+      theme: null
     };
     chrome.storage.local.set({ options: data.options }, (data) => {
       console.log('Default options saved');

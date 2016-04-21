@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-ng-app="app">
+<html data-ng-app="app" data-ng-controller="OptionsController as vm">
   <head>
     <!-- build:css styles/options-vendor.css -->
     <!-- bower:css -->
@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link data-ng-if="vm.options.theme" data-ng-href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/{{ vm.options.theme }}/bootstrap.min.css" rel="stylesheet">
     <!-- build:css styles/main.css -->
     <link href="styles/main.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
-  <body class="body options" data-ng-controller="OptionsController as vm">
+  <body class="body options" data-ng-cloak>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -60,6 +61,17 @@
                 </div>
               </div>
               <p class="help-block">Visit <a href="https://developer.chrome.com/extensions/match_patterns" target="_blank">Google's match patterns documentation</a> to learn more.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Theme</label><small></small>
+              <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme">
+                <ui-select-match placeholder="Select theme...">{{ $select.selected.name }}</ui-select-match>
+                <ui-select-choices repeat="theme.value as theme in vm.availableThemes">
+                  {{ theme.name }}
+                </ui-select-choices>
+              </ui-select>
+              <p class="help-block">* Note: there seems to be issues with the sizes of things with some themes.</p>
             </div>
 
             <button type="submit" class="btn btn-primary" data-ng-disabled="vm.optionsForm.$invalid">Save</button>
