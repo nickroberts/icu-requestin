@@ -1,0 +1,42 @@
+{
+  "name": "icu-requestin",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "^1.5.5",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.2",
+    "angular-moment": "^0.10.3",
+    "font-awesome": "^4.6.1",
+    "toastr": "^2.1.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css"
+      ]
+    },
+    "angular-bootstrap": {
+      "main": [
+        "ui-bootstrap-tpls.js"
+      ]
+    },
+    "angular-moment": {
+      "main": [
+        "angular-moment.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "^1.5.5"
+  }
+}

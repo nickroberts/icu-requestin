@@ -1,0 +1,38 @@
+{
+  "name": "__MSG_appName__",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "__MSG_appDescription__",
+  "icons": {
+    "16": "images/icons/on/icon-16.png",
+    "128": "images/icons/on/icon-128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "scripts/chromereload.js",
+      "scripts/background.js"
+    ]
+  },
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*",
+    "webRequest",
+    "webRequestBlocking",
+    "clipboardWrite",
+    "storage"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icons/on/icon-19.png",
+      "38": "images/icons/on/icon-38.png"
+    },
+    "default_title": "ICU Requestin'",
+    "default_popup": "popup.html"
+  }
+}
