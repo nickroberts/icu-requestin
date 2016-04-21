@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css styles/main.css -->
@@ -54,7 +55,7 @@
                 <div class="btn-group" role="group" aria-label="...">
                   <!--<button class="btn btn-default" type="button" data-ng-disabled="true" data-uib-tooltip="File a bug in Jira" data-tooltip-placement="left"><i class="fa fa-bug" aria-hidden="true"></i></button>-->
                   <button class="btn btn-default" type="button" data-ng-click="vm.copyDescription(request)" data-uib-tooltip="Copy to clipboard" data-tooltip-placement="left"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-                  <button class="btn btn-primary" type="button" data-ng-disabled="!(request.response | getXRequestId)" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="left"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  <button class="btn btn-primary" type="button" data-ng-disabled="!(request.response | getHeaderValue:'x-request-id')" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="left"><i class="fa fa-search" aria-hidden="true"></i></button>
                   <button class="btn btn-danger" type="button" data-ng-click="vm.remove(request)" data-uib-tooltip="Delete" data-tooltip-placement="left"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </div>
               </div>
@@ -70,13 +71,16 @@
               <tr>
                 <td>Status:</td><td>{{ request.response.statusLine }}</td>
               </tr>
-              <tr data-ng-if="request.response | getXRequestId">
-                <td>x-request-id:</td><td><a href="#" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="right">{{ request.response | getXRequestId }} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+              <tr data-ng-if="request.response | getHeaderValue:'x-request-id'">
+                <td>x-request-id:</td><td><a href="#" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="right">{{ request.response | getHeaderValue:'x-request-id' }} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
               </tr>
             </table>
 
             <div>
-              <div data-ng-click="request.requestShown = !request.requestShown" style="cursor: pointer;"><i class="fa fa-caret-right" aria-hidden="true" data-ng-if="!request.requestShown"></i><i class="fa fa-caret-down" aria-hidden="true" data-ng-if="request.requestShown"></i> <strong>Request:</strong></div>
+              <div data-ng-click="request.requestShown = !request.requestShown" style="cursor: pointer;">
+                <i class="fa fa-caret-right" aria-hidden="true" data-ng-if="!request.requestShown"></i>
+                <i class="fa fa-caret-down" aria-hidden="true" data-ng-if="request.requestShown"></i>
+                <strong>Request:</strong></div>
               <div class="well" data-ng-if="request.requestShown">
                 <table>
                   <tr data-ng-repeat="(key, value) in request.request.requestHeaders">
@@ -87,7 +91,10 @@
             </div>
 
             <div>
-              <div data-ng-click="request.responseShown = !request.responseShown" style="cursor: pointer;"><i class="fa fa-caret-right" aria-hidden="true" data-ng-if="!request.responseShown"></i><i class="fa fa-caret-down" aria-hidden="true" data-ng-if="request.responseShown"></i> <strong>Response:</strong></div>
+              <div data-ng-click="request.responseShown = !request.responseShown" style="cursor: pointer;">
+                <i class="fa fa-caret-right" aria-hidden="true" data-ng-if="!request.responseShown"></i>
+                <i class="fa fa-caret-down" aria-hidden="true" data-ng-if="request.responseShown"></i>
+                <strong>Response:</strong></div>
               <div class="well" data-ng-if="request.responseShown">
                 <table>
                   <tr data-ng-repeat="(key, value) in request.response.responseHeaders">
@@ -109,10 +116,12 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
+    <script src="bower_components/ui-select/dist/select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/popup.js -->
+    <script src="scripts/app.module.js"></script>
     <script src="scripts/popup.js"></script>
     <!-- endbuild -->
   </body>

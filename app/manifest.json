@@ -23,10 +23,7 @@
     "clipboardWrite",
     "storage"
   ],
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
+  "options_page": "options.html",
   "browser_action": {
     "default_icon": {
       "19": "images/icons/on/icon-19.png",

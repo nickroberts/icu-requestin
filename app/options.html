@@ -1,22 +1,80 @@
 <!doctype html>
-<html>
+<html data-ng-app="app">
   <head>
     <!-- build:css styles/options-vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css styles/main.css -->
     <link href="styles/main.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
-  <body class="body options">
+  <body class="body options" data-ng-controller="OptionsController as vm">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand brand-text">ICU Requestin'</span>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': vm.enabled,  'btn-default': !vm.enabled }">
+                    <input autocomplete="true" data-ng-model="vm.enabled" data-ng-value="true" type="radio">On
+                  </label>
+                  <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': !vm.enabled,  'btn-default': vm.enabled }">
+                    <input autocomplete="false" data-ng-model="vm.enabled" data-ng-value="false" type="radio">Off
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          Options are coming soon!
+          <form name="vm.optionsForm" ng-submit="vm.save()">
+            <div class="form-group">
+              <div data-ng-class="{ 'has-error': (vm.optionsForm.$submitted || vm.optionsForm.urls.$touched) && vm.optionsForm.urls.$invalid }">
+                <label class="control-label">URLs to spy on</label>
+                <div class="input-group">
+                  <ui-select multiple tagging tagging-label="(custom 'new' label)" name="urls" ng-model="vm.options.urls" theme="bootstrap" sortable="true" title="URLs" required>
+                    <ui-select-match placeholder="Enter urls...">{{ $item }}</ui-select-match>
+                    <ui-select-choices repeat="url in vm.availableUrls">
+                      {{ url }}
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('urls')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                  </span>
+                </div>
+                <div data-ng-if="vm.optionsForm.$submitted || vm.optionsForm.urls.$touched">
+                  <p class="help-block" data-ng-if="vm.optionsForm.urls.$error.required">This field is required.</p>
+                </div>
+              </div>
+              <p class="help-block">Visit <a href="https://developer.chrome.com/extensions/match_patterns" target="_blank">Google's match patterns documentation</a> to learn more.</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-ng-disabled="vm.optionsForm.$invalid">Save</button>
+            <button type="button" class="btn btn-default" data-ng-click="vm.reset()">Reset</button>
+            <button type="button" class="btn btn-link" data-ng-click="vm.resetAllToDefault()">Reset all to default</button>
+          </form>
+
+          <div style="margin-top: 20px;">
+            <button class="btn btn-xs btn-link" data-ng-click="vm.debug = !vm.debug">
+              <span data-ng-if="!vm.debug"><i class="fa fa-caret-right" aria-hidden="true"></i> Show</span>
+              <span data-ng-if="vm.debug"><i class="fa fa-caret-down" aria-hidden="true"></i> Hide</span>
+              debug info
+              </button>
+            <pre style="margin-top: 10px;" data-ng-if="vm.debug">options: {{ vm.options | json }}<br><br>optionsForm: {{ vm.optionsForm | json }}</pre>
+          </div>
       </div>
     </div>
 
@@ -28,10 +86,12 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
+    <script src="bower_components/ui-select/dist/select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/options.js -->
+    <script src="scripts/app.module.js"></script>
     <script src="scripts/options.js"></script>
     <!-- endbuild -->
   </body>

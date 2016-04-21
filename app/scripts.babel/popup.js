@@ -1,41 +1,12 @@
 (function() {
   'use strict';
 
-  angular.module('app', ['ui.bootstrap', 'angularMoment'])
-    .filter('reverse', ReverseFilter)
-    .filter('removeQueryStringParams', RemoveQueryStringParamsFilter)
-    .filter('getXRequestId', GetRequestIdFilter)
-    .constant('toastr', toastr)
+  angular.module('app')
     .controller('PopupController', PopupController);
-
-  function ReverseFilter() {
-    return function(items) {
-      return items && items.length ? items.slice().reverse() : null;
-    };
-  }
-
-  function RemoveQueryStringParamsFilter() {
-    return function(input) {
-      return input.replace(/\?.*$/g, '');
-    };
-  }
-
-  function GetRequestIdFilter() {
-    return function(input) {
-      try {
-        return input.responseHeaders.find((header) => {
-          return header.name === 'x-request-id';
-        }).value;
-      } catch (e) {
-        return null;
-      }
-    };
-  }
 
   PopupController.$inject = ['$scope', 'moment', '$filter', '$window', 'toastr'];
 
   function PopupController($scope, moment, $filter, $window, toastr) {
-    this.whatever = 'beer';
     let vm = this;
 
     let _enabled = true;
@@ -114,8 +85,8 @@
     }
 
     function _buildSumologicUrl(request) {
-      // https://service.sumologic.com/ui/index.html#section/search/@@ada5cb43fbcd4bfc960538e8ebc95e04
-      let xRequestId = $filter('getXRequestId')(request.response);
+      // https://service.sumologic.com/ui/index.html#section/search/@<timeFrom>,<timeTo>@<searchString>
+      let xRequestId = $filter('getHeaderValue')(request.response, 'x-request-id');
       if (xRequestId) {
         let fromTimestamp = moment(request.response.timeStamp).subtract(moment.duration(2, 'm'));
         let toTimestamp = moment(request.response.timeStamp).add(moment.duration(2, 'm'));
@@ -125,8 +96,7 @@
     }
 
     function searchInSumologic(request) {
-      // https://service.sumologic.com/ui/index.html#section/search/@@ada5cb43fbcd4bfc960538e8ebc95e04
-      let xRequestId = $filter('getXRequestId')(request.response);
+      let xRequestId = $filter('getHeaderValue')(request.response, 'x-request-id');
       if (xRequestId) {
         $window.open(_buildSumologicUrl(request));
       }

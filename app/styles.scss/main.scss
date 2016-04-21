@@ -1,11 +1,11 @@
 $padding: 10px;
 body {
-  width: 800px;
   &.popup {
     padding-top: 70px;
+    width: 800px;
   }
   &.options {
-    padding-top: 20px;
+    padding-top: 70px;
     padding-bottom: 20px;
   }
 }
@@ -62,5 +62,11 @@ body {
       margin-left: 15px;
       margin-right: 15px;
     }
+  }
+}
+
+.ui-select-multiple {
+  &.ui-select-bootstrap {
+    padding: 6px 3px 0 6px;
   }
 }

@@ -1,11 +1,7 @@
 'use strict';
 
-const URLS = [
-  'http://*/*',
-  'https://*/*'
-];
-
 let headerStore = {};
+let options = null;
 
 console.log('\'Allo \'Allo! Event Page for Browser Action');
 
@@ -81,12 +77,12 @@ function enable() {
     }
   });
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceivedListener, {
-    urls: URLS,
+    urls: options.urls,
     types: ['main_frame', 'sub_frame', 'xmlhttprequest']
   },
   ['responseHeaders', 'blocking']);
   chrome.webRequest.onSendHeaders.addListener(onSendHeadersListener, {
-    urls: URLS,
+    urls: options.urls,
     types: ['main_frame', 'sub_frame', 'xmlhttprequest']
   },
   ['requestHeaders']);
@@ -141,10 +137,32 @@ function load() {
   });
 }
 
-chrome.storage.local.get('enabled', (data) => {
-  if (typeof data.enabled !== 'boolean' || data.enabled) {
-    load();
+// Iniitalize default options
+chrome.storage.local.get('options', (data) => {
+  if (!data.options) {
+    data.options = {
+      urls: [
+        'http://*/*',
+        'https://*/*'
+      ]
+    };
+    chrome.storage.local.set({ options: data.options }, (data) => {
+      console.log('Default options saved');
+      options = data.options;
+      activate();
+    });
   } else {
-    disable();
+    options = data.options;
+    activate();
   }
 });
+
+function activate() {
+  chrome.storage.local.get('enabled', (data) => {
+    if (typeof data.enabled !== 'boolean' || data.enabled) {
+      load();
+    } else {
+      disable();
+    }
+  });
+}
