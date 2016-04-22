@@ -60,6 +60,8 @@
           vm.requests = [];
           for (let request in storage.responses) {
             if (storage.responses.hasOwnProperty(request)) {
+              // TODO: this is temporary...need to check the status or what not
+              storage.responses[request].isError = true;
               vm.requests.push(storage.responses[request]);
             }
           }
