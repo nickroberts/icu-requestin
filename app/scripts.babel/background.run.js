@@ -4,9 +4,9 @@
   angular.module('app')
     .run(runBlock);
 
-  runBlock.$inject = ['$log', 'defaultOptions'];
+  runBlock.$inject = ['$log', 'defaultOptions', 'isError'];
 
-  function runBlock($log, defaultOptions) {
+  function runBlock($log, defaultOptions, isError) {
     $log.debug('Running!');
 
     let _enabled = false;
@@ -157,9 +157,21 @@
 
     function setBadgeText(value = null) {
       $log.debug('setBadgeText()');
-      chrome.browserAction.setBadgeText({
-        text: value ? value.toString() : (Object.keys(_headerStore).length > 0 ? Object.keys(_headerStore).length.toString() : '')
-      });
+      let numberOfErrors = 0;
+      for (let r in _headerStore) {
+        if (_headerStore.hasOwnProperty(r) && isError(_headerStore[r])) {
+          numberOfErrors++;
+        }
+      }
+      if (value) {
+        chrome.browserAction.setBadgeText({
+          text: value ? value.toString() : (Object.keys(_headerStore).length > 0 ? Object.keys(_headerStore).length.toString() : '')
+        });
+      } else {
+        chrome.browserAction.setBadgeText({
+          text: numberOfErrors > 0 ? numberOfErrors.toString() : ''
+        });
+      }
     }
 
     function clearBadgeText() {

@@ -69,7 +69,7 @@
 
       <div class="row" data-ng-if="vm.requests">
         <div class="col-xs-12">
-          <div class="request-list-item" data-ng-repeat="request in vm.requests | reverse" data-ng-if="vm.showOnlyErrors ? request.isError : true">
+          <div class="request-list-item" data-ng-repeat="request in vm.requests | reverse" data-ng-if="request.response && (vm.showOnlyErrors ? request.isError : true)">
             <div class="row">
               <div class="col-xs-9">
                 <i data-ng-if="request.isError" class="fa fa-exclamation" aria-hidden="true" style="color: red;"></i>

@@ -66,9 +66,13 @@ gulp.task('html', ['styles'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.sourcemaps.init())
+    // This turns debug to false so logs don't show
+    .pipe($.if('*.js', $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cleanCss({compatibility: '*'})))
     .pipe($.sourcemaps.write())
+    // This removes the chrome reload script
+    .pipe($.if('*.html', $.replace('<script src="scripts/chromereload.js"></script>', '')))
     .pipe($.if('*.html', $.htmlmin({removeComments: true, collapseWhitespace: true})))
     .pipe(gulp.dest('dist'));
 });
@@ -77,12 +81,9 @@ gulp.task('chromeManifest', () => {
   return gulp.src('app/manifest.json')
     .pipe($.chromeManifest({
       buildnumber: false,
-      background: {
-        target: 'scripts/background.js',
-        exclude: [
-          'scripts/chromereload.js'
-        ]
-      }
+      exclude: [
+        'scripts/chromereload.js'
+      ]
   }))
   .pipe($.if('*.css', $.cleanCss({compatibility: '*'})))
   .pipe($.if('*.js', $.sourcemaps.init()))
@@ -124,7 +125,7 @@ gulp.task('size', () => {
 gulp.task('wiredep', () => {
   gulp.src('app/*.html')
     .pipe(wiredep({
-      ignorePath: /^(\.\.\/)*\.\./
+      ignorePath: /^(\.\.\/)*\.\./,
     }))
     .pipe(gulp.dest('app'));
 });
