@@ -24,13 +24,13 @@
       chrome.storage.local.get('options', (storage) => {
         if (!storage.options) {
           chrome.storage.local.set({ options: defaultOptions }, () => {
-            $log.debug('Default options initialized.');
+            $log.debug('Default options initialized.', defaultOptions);
             _options = defaultOptions;
             enable();
           });
         } else {
           _options = storage.options;
-          $log.debug('Options have been created already.');
+          $log.debug('Options have been created already.', storage.options);
           enable();
         }
       });

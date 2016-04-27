@@ -7,6 +7,14 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
+gulp.task('fonts', () => {
+  return gulp.src([
+    'app/bower_components/bootstrap/fonts/**',
+    'app/bower_components/font-awesome/fonts/**'
+  ], {
+  }).pipe(gulp.dest('dist/fonts'));
+});
+
 gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
@@ -140,7 +148,7 @@ gulp.task('package', function () {
 gulp.task('build', (cb) => {
   runSequence(
     'lint', 'babel', 'chromeManifest',
-    ['html', 'images', 'extras'],
+    ['html', 'images', 'extras', 'fonts'],
     'size', cb);
 });
 

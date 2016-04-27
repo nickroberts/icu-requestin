@@ -33,9 +33,8 @@
         },
         set: (value) => {
           _showOnlyErrors = value;
-          chrome.storage.local.set({ showOnlyErrors: value }, () => {
-            $log.debug('Saved showOnlyErrors.', _showOnlyErrors);
-          });
+          vm.options.showOnlyErrors = value;
+          saveOptions();
         }
       }
     });
@@ -54,19 +53,25 @@
       chrome.storage.local.get('options', (storage) => {
         $log.debug('Options loaded', storage.options);
         vm.options = storage.options;
+        _showOnlyErrors = storage.options.showOnlyErrors;
         $scope.$applyAsync();
       });
       buildRequests();
     }
 
+    function saveOptions() {
+      $log.debug('saveOptions()');
+      chrome.storage.local.set({ options: vm.options }, () => {
+        $log.debug('Saved options.', vm.options);
+      });
+    }
+
     function buildRequests() {
       $log.debug('buildRequests()');
-      chrome.storage.local.get(['enabled', 'requests', 'showOnlyErrors'], (storage) => {
+      chrome.storage.local.get(['enabled', 'requests'], (storage) => {
         $log.debug('Loaded enabled:', storage.enabled);
         $log.debug('Loaded requests:', storage.requests);
-        $log.debug('Loaded showOnlyErrors:', storage.showOnlyErrors);
         _enabled = storage.enabled;
-        _showOnlyErrors = storage.showOnlyErrors;
         if (storage.requests) {
           vm.requests = [];
           for (let request in storage.requests) {
