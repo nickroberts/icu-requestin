@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-ng-app="app" data-ng-controller="OptionsController as vm">
   <head>
-    <!-- build:css styles/options-vendor.css -->
+    <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
@@ -47,7 +47,7 @@
           <form name="vm.optionsForm" ng-submit="vm.save()">
             <div class="form-group">
               <div data-ng-class="{ 'has-error': (vm.optionsForm.$submitted || vm.optionsForm.urls.$touched) && vm.optionsForm.urls.$invalid }">
-                <label class="control-label">URLs to spy on</label>
+                <label class="control-label">URLs to spy on:</label>
                 <div class="input-group">
                   <ui-select multiple tagging tagging-label="(custom 'new' label)" name="urls" ng-model="vm.options.urls" theme="bootstrap" sortable="true" title="URLs" required>
                     <ui-select-match placeholder="Enter urls...">{{ $item }}</ui-select-match>
@@ -67,7 +67,19 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label">Theme</label><small></small>
+              <label class="control-label">Requests display:</label>
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': vm.options.showOnlyErrors,  'btn-default': !vm.options.showOnlyErrors }">
+                  <input autocomplete="true" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="true" type="radio">Show only errors
+                </label>
+                <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': !vm.options.showOnlyErrors,  'btn-default': vm.options.showOnlyErrors }">
+                  <input autocomplete="false" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="false" type="radio">Show all requests
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Theme:</label>
               <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme">
                 <ui-select-match placeholder="Select theme...">{{ $select.selected.name }}</ui-select-match>
                 <ui-select-choices repeat="theme.value as theme in vm.availableThemes">
@@ -93,7 +105,7 @@
       </div>
     </div>
 
-    <!-- build:js scripts/options-vendor.js -->
+    <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -107,7 +119,7 @@
 
     <!-- build:js scripts/options.js -->
     <script src="scripts/app.module.js"></script>
-    <script src="scripts/options.js"></script>
+    <script src="scripts/options.controller.js"></script>
     <!-- endbuild -->
   </body>
 </html>
