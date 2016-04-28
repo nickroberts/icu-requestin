@@ -48,5 +48,8 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "gulp-bump": "^2.1.0"
   }
 }
