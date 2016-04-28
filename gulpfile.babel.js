@@ -146,7 +146,7 @@ gulp.task('wiredep', () => {
 });
 
 gulp.task('inject', () => {
-  return gulp.src('app/**/templates/*.html')
+  return gulp.src('app/*.html')
     .pipe($.inject(gulp.src([
         'app/scripts/app.module.js',
         'app/scripts/run/**/*.js',

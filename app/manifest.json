@@ -9,7 +9,7 @@
   },
   "default_locale": "en",
   "background": {
-    "page": "templates/background.template.html"
+    "page": "background.template.html"
   },
   "permissions": [
     "tabs",
@@ -20,13 +20,13 @@
     "clipboardWrite",
     "storage"
   ],
-  "options_page": "templates/options.template.html",
+  "options_page": "options.template.html",
   "browser_action": {
     "default_icon": {
       "19": "images/icons/on/icon-19.png",
       "38": "images/icons/on/icon-38.png"
     },
     "default_title": "ICU Requestin'",
-    "default_popup": "templates/popup.template.html"
+    "default_popup": "popup.template.html"
   }
 }
