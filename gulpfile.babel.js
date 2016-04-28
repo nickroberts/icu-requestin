@@ -123,7 +123,7 @@ gulp.task('watch', ['lint', 'babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['lint', 'babel']);
   gulp.watch('app/styles.scss/**/*.scss', ['styles']);
-  gulp.watch('bower.json', ['wiredep']);
+  gulp.watch('bower.json', ['wiredep', 'inject']);
 });
 
 gulp.task('size', () => {
@@ -135,6 +135,17 @@ gulp.task('wiredep', () => {
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)*\.\./,
     }))
+    .pipe(gulp.dest('app'));
+});
+
+gulp.task('inject', () => {
+  return gulp.src('app/**/templates/*.html')
+    .pipe($.inject(gulp.src([
+        'app/scripts/app.module.js',
+        'app/scripts/run/**/*.js',
+        'app/scripts/constants/**/*.js',
+        'app/scripts/filters/**/*.js'
+      ], { read: false }), { relative: true }))
     .pipe(gulp.dest('app'));
 });
 
