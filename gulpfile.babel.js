@@ -110,7 +110,20 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['lint', 'babel', 'html'], () => {
+gulp.task('pre-watch', (cb) => {
+  runSequence(
+    ['lint', 'babel', 'html'],
+    'wiredep',
+    'inject', cb);
+});
+
+gulp.task('js-changed', (cb) => {
+  runSequence(
+    ['lint', 'babel'],
+    'inject', cb);
+});
+
+gulp.task('watch', ['pre-watch'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -121,9 +134,9 @@ gulp.task('watch', ['lint', 'babel', 'html'], () => {
     'app/_locales/**/*.json'
   ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', ['lint', 'babel']);
+  gulp.watch('app/scripts.babel/**/*.js', ['js-changed']);
   gulp.watch('app/styles.scss/**/*.scss', ['styles']);
-  gulp.watch('bower.json', ['wiredep', 'inject']);
+  gulp.watch('bower.json', ['wiredep']);
 });
 
 gulp.task('size', () => {
