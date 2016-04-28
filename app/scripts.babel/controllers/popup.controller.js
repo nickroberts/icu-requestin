@@ -78,7 +78,7 @@
             if (storage.requests.hasOwnProperty(request)) {
               // TODO: maybe move these to where it gets the response
               storage.requests[request].isError = isError(storage.requests[request]);
-              storage.requests[request].xRequestId = $filter('getHeaderValue')(request.response, 'x-request-id');
+              storage.requests[request].xRequestId = $filter('getHeaderValue')(storage.requests[request].response, 'x-request-id');
               vm.requests.push(storage.requests[request]);
             }
           }
@@ -125,7 +125,7 @@
     }
 
     function searchInSumologic(request) {
-      $log.debug('searchInSumologic()');
+      $log.debug('searchInSumologic()', request);
       if (request.xRequestId) {
         $window.open(_buildSumologicUrl(request));
       }
