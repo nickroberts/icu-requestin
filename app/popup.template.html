@@ -25,6 +25,17 @@
           <span class="navbar-brand brand-text">ICU Requestin'</span>
         </div>
 
+        <form class="navbar-form navbar-left" role="search" data-ng-submit="vm.searchInSumologic(vm.sumologicSearch)">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="Search in Sumologic" data-ng-model="vm.sumologicSearch">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-sm btn-default">Search</button>
+              </span>
+            </div>
+          </div>
+        </form>
+
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li>
@@ -87,7 +98,7 @@
                     <td>Status:</td><td>{{ request.response.statusLine }}</td>
                   </tr>
                   <tr data-ng-if="request.response | getHeaderValue:'x-request-id'">
-                    <td>x-request-id:</td><td><a href="#" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="right">{{ request.response | getHeaderValue:'x-request-id' }} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                    <td>x-request-id:</td><td><a href="#" data-ng-click="vm.xRequestIdSumologicSearch(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="right">{{ request.response | getHeaderValue:'x-request-id' }} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                   </tr>
                 </table>
 
@@ -125,7 +136,7 @@
               <div class="col-xs-3 text-right">
                 <div class="btn-group" role="group" aria-label="...">
                   <button class="btn btn-sm btn-default" type="button" data-ng-click="vm.copyDescription(request)" data-uib-tooltip="Copy to clipboard" data-tooltip-placement="left"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-                  <button class="btn btn-sm btn-primary" type="button" data-ng-if="!!(request.response | getHeaderValue:'x-request-id')" data-ng-click="vm.searchInSumologic(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="left"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm btn-primary" type="button" data-ng-if="!!(request.response | getHeaderValue:'x-request-id')" data-ng-click="vm.xRequestIdSumologicSearch(request)" data-uib-tooltip="Search in Sumologic" data-tooltip-placement="left"><i class="fa fa-search" aria-hidden="true"></i></button>
                   <button class="btn btn-sm btn-danger" type="button" data-ng-click="vm.remove(request)" data-uib-tooltip="Delete" data-tooltip-placement="left"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </div>
               </div>

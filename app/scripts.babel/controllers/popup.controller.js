@@ -12,6 +12,7 @@
     let _showOnlyErrors;
 
     vm.toggleEnabled = toggleEnabled;
+    vm.xRequestIdSumologicSearch = xRequestIdSumologicSearch;
     vm.searchInSumologic = searchInSumologic;
     vm.copyDescription = copyDescription;
     vm.clear = clear;
@@ -124,11 +125,15 @@
       return null;
     }
 
-    function searchInSumologic(request) {
-      $log.debug('searchInSumologic()', request);
+    function xRequestIdSumologicSearch(request) {
+      $log.debug('xRequestIdSumologicSearch()', request);
       if (request.xRequestId) {
         $window.open(_buildSumologicUrl(request));
       }
+    }
+
+    function searchInSumologic(search) {
+      $window.open('https://service.sumologic.com/ui/index.html#section/search/@@' + search);
     }
 
     function copyDescription(request) {
