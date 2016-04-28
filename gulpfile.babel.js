@@ -6,6 +6,7 @@ import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
+const bumpFiles = ['package.json', 'bower.json', 'app/manifest.json'];
 
 gulp.task('fonts', () => {
   return gulp.src([
@@ -172,4 +173,22 @@ gulp.task('build', (cb) => {
 
 gulp.task('default', ['clean'], cb => {
   runSequence('build', cb);
+});
+
+gulp.task('bump', function(){
+  gulp.src(bumpFiles, { base: './' })
+  .pipe($.bump())
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('bump:minor', function(){
+  gulp.src(bumpFiles, { base: './' })
+  .pipe($.bump({ type:'minor' }))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('bump:major', function(){
+  gulp.src(bumpFiles, { base: './' })
+  .pipe($.bump({ type:'major' }))
+  .pipe(gulp.dest('./'));
 });
