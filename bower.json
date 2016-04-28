@@ -1,7 +1,7 @@
 {
   "name": "icu-requestin",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "angular": "^1.5.5",
     "bootstrap": "^3.3.6",
