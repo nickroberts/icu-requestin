@@ -69,23 +69,29 @@
             <div class="form-group">
               <label class="control-label">Requests display:</label>
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': vm.options.showOnlyErrors,  'btn-default': !vm.options.showOnlyErrors }">
+                <label class="btn navbar-btn" data-ng-class="{ 'btn-primary': vm.options.showOnlyErrors,  'btn-default': !vm.options.showOnlyErrors }">
                   <input autocomplete="true" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="true" type="radio">Show only errors
                 </label>
-                <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': !vm.options.showOnlyErrors,  'btn-default': vm.options.showOnlyErrors }">
+                <label class="btn navbar-btn" data-ng-class="{ 'btn-primary': !vm.options.showOnlyErrors,  'btn-default': vm.options.showOnlyErrors }">
                   <input autocomplete="false" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="false" type="radio">Show all requests
                 </label>
               </div>
+              <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('showOnlyErrors')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
             </div>
 
             <div class="form-group">
               <label class="control-label">Theme:</label>
-              <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme">
-                <ui-select-match placeholder="Select theme...">{{ $select.selected.name }}</ui-select-match>
-                <ui-select-choices repeat="theme.value as theme in vm.availableThemes">
-                  {{ theme.name }}
-                </ui-select-choices>
-              </ui-select>
+              <div class="input-group">
+                <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme">
+                  <ui-select-match placeholder="Select theme...">{{ $select.selected.name }}</ui-select-match>
+                  <ui-select-choices repeat="theme.value as theme in vm.availableThemes">
+                    {{ theme.name }}
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('theme')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                </span>
+              </div>
               <p class="help-block">* Note: there seems to be issues with the sizes of things with some themes.</p>
             </div>
 

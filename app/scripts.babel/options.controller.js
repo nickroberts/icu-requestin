@@ -8,6 +8,7 @@
 
   function OptionsController($log, $scope, toastr, defaultOptions, availableUrls, availableThemes) {
     let vm = this;
+    let _enabled;
 
     vm.reset = reset;
     vm.save = save;
@@ -15,11 +16,21 @@
     vm.resetOptionToDefault = resetOptionToDefault;
     vm.originalOptions = null;
     vm.options = null;
-
     vm.availableUrls = availableUrls;
     vm.availableThemes = availableThemes;
-
     vm.theme = null;
+
+    Object.defineProperties(vm, {
+      enabled: {
+        get: () => {
+          return _enabled;
+        },
+        set: (value) => {
+          _enabled = value;
+          toggleEnabled(value);
+        }
+      }
+    });
 
     activate();
 
@@ -30,14 +41,20 @@
       loadOptions();
     }
 
-    // TODO: put all of the options (and chrome calls?!?) in a service
+    function toggleEnabled(value) {
+      $log.debug('toggleEnabled()', value);
+      chrome.runtime.sendMessage({ action: 'toggleEnabled', value: value }, (response) => {
+        $log.debug('Received the toggleEnabled response:', response);
+      });
+    }
 
     function loadOptions() {
       $log.debug('loadOptions()');
-      chrome.storage.local.get('options', (data) => {
-        $log.debug('Options have been loaded', data.options);
-        vm.options = data.options;
-        vm.originalOptions = angular.copy(data.options);
+      chrome.storage.local.get(['options', 'enabled'], (storage) => {
+        $log.debug('Options and enabled have been loaded', storage.options);
+        _enabled = storage.enabled;
+        vm.options = storage.options;
+        vm.originalOptions = angular.copy(storage.options);
         $scope.$applyAsync();
       });
     }

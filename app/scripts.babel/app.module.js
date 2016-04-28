@@ -36,6 +36,11 @@
       { name: 'United', value: 'united' },
       { name: 'Yeti', value: 'yeti' }
     ])
+    .constant('availableUrls', [
+      '<all_urls>',
+      'http://*/*',
+      'https://*/*'
+    ])
     .constant('isError', isError);
 
   appConfig.$inject = ['$logProvider'];
