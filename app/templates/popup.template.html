@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
-    <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="../bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="../bower_components/ui-select/dist/select.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link data-ng-if="vm.options.theme" data-ng-href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/{{ vm.options.theme }}/bootstrap.min.css" rel="stylesheet">
     <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="../styles/main.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
   <body class="body popup" data-ng-cloak>
@@ -20,7 +20,7 @@
       <div class="container">
         <div class="navbar-header">
           <span class="navbar-brand">
-            <img alt="ICU Requestin'" src="images/icons/on/icon-128.png">
+            <img alt="ICU Requestin'" src="../images/icons/on/icon-128.png">
           </span>
           <span class="navbar-brand brand-text">ICU Requestin'</span>
         </div>
@@ -137,19 +137,27 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.js"></script>
-    <script src="bower_components/toastr/toastr.js"></script>
-    <script src="bower_components/ui-select/dist/select.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+    <script src="../bower_components/angular-moment/angular-moment.js"></script>
+    <script src="../bower_components/toastr/toastr.js"></script>
+    <script src="../bower_components/ui-select/dist/select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/popup.js -->
-    <script src="scripts/app.module.js"></script>
-    <script src="scripts/popup.controller.js"></script>
+    <script src="../scripts/app.module.js"></script>
+    <script src="../scripts/constants/availableThemes.constant.js"></script>
+    <script src="../scripts/constants/availableUrls.constant.js"></script>
+    <script src="../scripts/constants/defaultOptions.constant.js"></script>
+    <script src="../scripts/constants/isError.constant.js"></script>
+    <script src="../scripts/constants/toastr.constant.js"></script>
+    <script src="../scripts/filters/getHeaderValue.filter.js"></script>
+    <script src="../scripts/filters/removeQueryStringParams.filter.js"></script>
+    <script src="../scripts/filters/reverse.filter.js"></script>
+    <script src="../scripts/controllers/popup.controller.js"></script>
     <!-- endbuild -->
   </body>
 </html>

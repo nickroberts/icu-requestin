@@ -156,7 +156,8 @@
     }
 
     function setBadgeText(value = null) {
-      $log.debug('setBadgeText()');
+      $log.debug('setBadgeText()', value);
+      // Only show errors in the extension badge
       let numberOfErrors = 0;
       for (let r in _headerStore) {
         if (_headerStore.hasOwnProperty(r) && isError(_headerStore[r])) {
