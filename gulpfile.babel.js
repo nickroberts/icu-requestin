@@ -78,7 +78,7 @@ gulp.task('html', ['styles'], () => {
     // This turns debug to false so logs don't show
     .pipe($.if('*.js', $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
     .pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.css', $.cleanCss({compatibility: '*'})))
+    .pipe($.if('*.css', $.uglifycss({ 'uglyComments': false })))
     .pipe($.sourcemaps.write())
     // This removes the chrome reload script
     .pipe($.if('*.html', $.replace('<script src="scripts/chromereload.js"></script>', '')))
