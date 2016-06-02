@@ -12,6 +12,9 @@
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
     <script src="bower_components/ui-select/dist/select.js"></script>
+    <script src="bower_components/SHA-1/sha1.js"></script>
+    <script src="bower_components/angulartics/src/angulartics.js"></script>
+    <script src="bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -19,6 +22,7 @@
 
     <!-- build:js scripts/background.js -->
     <!-- inject:js -->
+    <script src="scripts/analytics.js"></script>
     <script src="scripts/app.module.js"></script>
     <script src="scripts/run/background.run.js"></script>
     <script src="scripts/constants/availableThemes.constant.js"></script>
@@ -30,7 +34,6 @@
     <script src="scripts/filters/removeQueryStringParams.filter.js"></script>
     <script src="scripts/filters/reverse.filter.js"></script>
     <!-- endinject -->
-    <script src="scripts/run/background.run.js"></script>
     <!-- endbuild -->
   </body>
 </html>

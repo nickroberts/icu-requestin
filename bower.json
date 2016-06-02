@@ -9,7 +9,8 @@
     "angular-moment": "^0.10.3",
     "font-awesome": "^4.6.1",
     "toastr": "^2.1.2",
-    "ui-select": "angular-ui-select#^0.16.1"
+    "ui-select": "angular-ui-select#^0.16.1",
+    "angulartics-google-analytics": "^0.1.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",

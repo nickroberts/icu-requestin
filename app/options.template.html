@@ -29,10 +29,12 @@
               <li>
                 <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': vm.enabled,  'btn-default': !vm.enabled }">
-                    <input autocomplete="true" data-ng-model="vm.enabled" data-ng-value="true" type="radio">On
+                    <input autocomplete="true" data-ng-model="vm.enabled" data-ng-value="true" type="radio"
+                      data-analytics-on="click" data-analytics-event="Enabled: On" data-analytics-category="Options">On
                   </label>
                   <label class="btn btn-xs navbar-btn" data-ng-class="{ 'btn-primary': !vm.enabled,  'btn-default': vm.enabled }">
-                    <input autocomplete="false" data-ng-model="vm.enabled" data-ng-value="false" type="radio">Off
+                    <input autocomplete="false" data-ng-model="vm.enabled" data-ng-value="false" type="radio"
+                      data-analytics-on="click" data-analytics-event="Enabled: Off" data-analytics-category="Options">Off
                   </label>
                 </div>
               </li>
@@ -49,59 +51,71 @@
               <div data-ng-class="{ 'has-error': (vm.optionsForm.$submitted || vm.optionsForm.urls.$touched) && vm.optionsForm.urls.$invalid }">
                 <label class="control-label">URLs to spy on:</label>
                 <div class="input-group">
-                  <ui-select multiple tagging tagging-label="(custom 'new' label)" name="urls" ng-model="vm.options.urls" theme="bootstrap" sortable="true" title="URLs" required>
+                  <ui-select multiple tagging tagging-label="(custom 'new' label)" name="urls" ng-model="vm.options.urls" theme="bootstrap" sortable="true" title="URLs" required
+                    data-analytics-on="change" data-analytics-event="URLs: changed" data-analytics-category="Options">
                     <ui-select-match placeholder="Enter urls...">{{ $item }}</ui-select-match>
                     <ui-select-choices repeat="url in vm.availableUrls">
                       {{ url }}
                     </ui-select-choices>
                   </ui-select>
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('urls')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                    <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('urls')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"
+                      data-analytics-on="click" data-analytics-event="Reset: URLs" data-analytics-category="Options"><i class="fa fa-undo" aria-hidden="true"></i></button>
                   </span>
                 </div>
                 <div data-ng-if="vm.optionsForm.$submitted || vm.optionsForm.urls.$touched">
                   <p class="help-block" data-ng-if="vm.optionsForm.urls.$error.required">This field is required.</p>
                 </div>
               </div>
-              <p class="help-block">Visit <a href="https://developer.chrome.com/extensions/match_patterns" target="_blank">Google's match patterns documentation</a> to learn more.</p>
+              <p class="help-block">Visit <a href="https://developer.chrome.com/extensions/match_patterns" target="_blank"
+                data-analytics-on="click" data-analytics-event="Visit Match Patterns" data-analytics-category="Options">Google's match patterns documentation</a> to learn more.</p>
             </div>
 
             <div class="form-group">
               <label class="control-label">Requests display:</label>
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn navbar-btn" data-ng-class="{ 'btn-primary': vm.options.showOnlyErrors,  'btn-default': !vm.options.showOnlyErrors }">
-                  <input autocomplete="true" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="true" type="radio">Show only errors
+                  <input autocomplete="true" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="true" type="radio"
+                    data-analytics-on="click" data-analytics-event="Show Only Errors: On" data-analytics-category="Options">Show only errors
                 </label>
                 <label class="btn navbar-btn" data-ng-class="{ 'btn-primary': !vm.options.showOnlyErrors,  'btn-default': vm.options.showOnlyErrors }">
-                  <input autocomplete="false" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="false" type="radio">Show all requests
+                  <input autocomplete="false" name="showOnlyErrors" data-ng-model="vm.options.showOnlyErrors" data-ng-value="false" type="radio"
+                    data-analytics-on="click" data-analytics-event="Show Only Errors: Off" data-analytics-category="Options">Show all requests
                 </label>
               </div>
-              <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('showOnlyErrors')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
+              <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('showOnlyErrors')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"
+                data-analytics-on="click" data-analytics-event="Reset: Show Only Errors" data-analytics-category="Options"><i class="fa fa-undo" aria-hidden="true"></i></button>
             </div>
 
             <div class="form-group">
               <label class="control-label">Theme:</label>
               <div class="input-group">
-                <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme">
+                <ui-select data-ng-model="vm.options.theme" name="theme" theme="bootstrap" title="Theme"
+                  data-analytics-on="change" data-analytics-event="Theme: Change" data-analytics-category="Options">
                   <ui-select-match placeholder="Select theme...">{{ $select.selected.name }}</ui-select-match>
                   <ui-select-choices repeat="theme.value as theme in vm.availableThemes">
                     {{ theme.name }}
                   </ui-select-choices>
                 </ui-select>
                 <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('theme')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                  <button class="btn btn-default" type="button" data-ng-click="vm.resetOptionToDefault('theme')" data-uib-tooltip="Reset to default" data-tooltip-placement="left"
+                    data-analytics-on="click" data-analytics-event="Reset: Theme" data-analytics-category="Options"><i class="fa fa-undo" aria-hidden="true"></i></button>
                 </span>
               </div>
               <p class="help-block">* Note: there seems to be issues with the sizes of things with some themes.</p>
             </div>
 
-            <button type="submit" class="btn btn-primary" data-ng-disabled="vm.optionsForm.$invalid">Save</button>
-            <button type="button" class="btn btn-default" data-ng-click="vm.reset()">Reset</button>
-            <button type="button" class="btn btn-link" data-ng-click="vm.resetAllToDefault()">Reset all to default</button>
+            <button type="submit" class="btn btn-primary" data-ng-disabled="vm.optionsForm.$invalid"
+              data-analytics-on="click" data-analytics-event="Save" data-analytics-category="Options">Save</button>
+            <button type="button" class="btn btn-default" data-ng-click="vm.reset()"
+              data-analytics-on="click" data-analytics-event="Reset: Form" data-analytics-category="Options">Reset</button>
+            <button type="button" class="btn btn-link" data-ng-click="vm.resetAllToDefault()"
+              data-analytics-on="click" data-analytics-event="Reset: All to Default" data-analytics-category="Options">Reset all to default</button>
           </form>
 
           <div style="margin-top: 20px;">
-            <button class="btn btn-xs btn-link" data-ng-click="vm.debug = !vm.debug">
+            <button class="btn btn-xs btn-link" data-ng-click="vm.debug = !vm.debug"
+              data-analytics-on="click" data-analytics-event="Debug Info: Toggled" data-analytics-category="Options">
               <span data-ng-if="!vm.debug"><i class="fa fa-caret-right" aria-hidden="true"></i> Show</span>
               <span data-ng-if="vm.debug"><i class="fa fa-caret-down" aria-hidden="true"></i> Hide</span>
               debug info
@@ -120,11 +134,15 @@
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
     <script src="bower_components/ui-select/dist/select.js"></script>
+    <script src="bower_components/SHA-1/sha1.js"></script>
+    <script src="bower_components/angulartics/src/angulartics.js"></script>
+    <script src="bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/options.js -->
     <!-- inject:js -->
+    <script src="scripts/analytics.js"></script>
     <script src="scripts/app.module.js"></script>
     <script src="scripts/run/background.run.js"></script>
     <script src="scripts/constants/availableThemes.constant.js"></script>

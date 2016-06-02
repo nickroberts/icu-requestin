@@ -149,6 +149,7 @@ gulp.task('wiredep', () => {
 gulp.task('inject', () => {
   return gulp.src('app/*.html')
     .pipe($.inject(gulp.src([
+        'app/scripts/analytics.js',
         'app/scripts/app.module.js',
         'app/scripts/run/**/*.js',
         'app/scripts/constants/**/*.js',
@@ -160,6 +161,8 @@ gulp.task('inject', () => {
 gulp.task('package', function () {
   var manifest = require('./dist/manifest.json');
   return gulp.src('dist/**')
+      // Change to prod GA
+      .pipe($.replace('UA-78702432-2', 'UA-78702432-1'))
       .pipe($.zip('ICU-Requestin-' + manifest.version + '.zip'))
       .pipe(gulp.dest('package'));
 });

@@ -28,5 +28,6 @@
     },
     "default_title": "ICU Requestin'",
     "default_popup": "popup.template.html"
-  }
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }
