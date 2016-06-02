@@ -3,7 +3,7 @@
 Spy on HTTP requests / responses
 
 ## Requirements
-* node 5+ (not 6, yet)
+* node 6
 * gulp (globally installed)
 * Chrome (duh!)
 
