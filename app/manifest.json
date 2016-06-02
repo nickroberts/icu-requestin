@@ -1,5 +1,8 @@
 {
   "name": "__MSG_appName__",
+  "author": {
+    "name": "Nick Roberts"
+  },
   "version": "0.0.4",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
