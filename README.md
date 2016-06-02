@@ -19,7 +19,7 @@ Spy on HTTP requests / responses
 Since it is not in the Chrome store, right now, you need to manually install it into Chrome.
 * Build the extension using `gulp build`.
 * In Chrome, in the url bar, go to `chrome://extensions`.
-* Click on `Lod unpacked extension`.
+* Click on `Load unpacked extension`.
 * Navigate to the `dist` folder where you saved the code and select it.
 
 This should load the extension into Chrome, and you can use it.
